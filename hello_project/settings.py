@@ -60,7 +60,7 @@ ROOT_URLCONF = 'hello_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,34 +78,11 @@ WSGI_APPLICATION = 'hello_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
-tmp_db_url = os.environ.get('DATABASE_URL')
-if tmp_db_url:
-    # Auto-fix unescaped # in password (common issue)
-    if '#' in tmp_db_url and 'postgres' in tmp_db_url:
-        # Assuming format postgresql://user:password@host...
-        try:
-            scheme, rest = tmp_db_url.split('://', 1)
-            creds, location = rest.split('@', 1)
-            user, password = creds.split(':', 1)
-            if '#' in password:
-                password = password.replace('#', '%23')
-                tmp_db_url = f"{scheme}://{user}:{password}@{location}"
-        except ValueError:
-            pass  # Fallback to original if parsing fails
-
-
 DATABASES = {
-    'default': dj_database_url.parse(
-        tmp_db_url,
-        conn_max_age=600,
-        conn_health_checks=True,
+    'default': dj_database_url.config(
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        conn_max_age=600
     )
-} if tmp_db_url else {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
 }
 
 
