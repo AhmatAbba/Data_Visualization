@@ -78,11 +78,34 @@ WSGI_APPLICATION = 'hello_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+tmp_db_url = os.environ.get('DATABASE_URL')
+if tmp_db_url and '#' in tmp_db_url:
+    try:
+        # Robustly split to find the password
+        # Format: scheme://user:password@host
+        scheme, rest = tmp_db_url.split('://', 1)
+        if '@' in rest:
+            auth, host = rest.rsplit('@', 1)
+            if ':' in auth:
+                user, password = auth.split(':', 1)
+                if '#' in password:
+                    password = password.replace('#', '%23')
+                    tmp_db_url = f"{scheme}://{user}:{password}@{host}"
+    except Exception:
+        pass
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
-        conn_max_age=600
+    'default': dj_database_url.parse(
+        tmp_db_url,
+        conn_max_age=600,
+        conn_health_checks=True,
     )
+} if tmp_db_url else {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
