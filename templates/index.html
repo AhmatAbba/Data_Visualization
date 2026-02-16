@@ -1,34 +1,82 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Django</title>
+    <title>Magnifique Tech | Future of Data</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
-    <div class="container">
-        <div class="card">
-            <div class="icon-wrapper">
-                <span class="emoji">🚀</span>
-            </div>
-            <h1>Hello, World!</h1>
-            <p class="subtitle">Your Django app is up and running.</p>
-            
-            <div class="tech-stack">
-                <div class="tech-item" title="Vercel">▲ Vercel</div>
-                <div class="tech-item" title="Render">☁️ Render</div>
-                <div class="tech-item" title="Supabase">⚡ Supabase</div>
-            </div>
 
-            <div class="status-indicator">
-                <span class="dot"></span> Systems Operational
-            </div>
-        </div>
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
+
+    <nav id="navbar">
+        <div class="logo">MAGNIFIQUE.</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#about">About</a>
+        </div>
+        <a href="#" class="btn btn-secondary" style="padding: 10px 20px;">Contact Us</a>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>The Future is <span>Magnifique</span></h1>
+            <p>Experience the next generation of data visualization and tech solutions with our premium,
+                high-performance platform. Built for the bold.</p>
+            <div class="cta-group">
+                <a href="#" class="btn btn-primary">Get Started</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="glass feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Lightning Fast</h3>
+                <p>Engineered for speed, our platform delivers real-time insights without compromise.</p>
+            </div>
+            <div class="glass feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3>Secure by Design</h3>
+                <p>Enterprise-grade security protocols ensuring your data remains yours alone.</p>
+            </div>
+            <div class="glass feature-card">
+                <span class="feature-icon">💎</span>
+                <h3>Premium UI</h3>
+                <p>A magnifique user interface that makes complex data simple and beautiful.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Magnifique Tech. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
+
 </html>
